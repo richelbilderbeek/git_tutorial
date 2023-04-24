@@ -134,7 +134,7 @@ rule index_genome:
         """
         # Bowtie2 cannot use .gz, so unzip to a temporary file first
         gunzip -c {input} > tempfile
-        bowtie2-build tempfile intermediate/{wildcards.genome_id} > {log}
+        bowtie2 --very-sensitive-local -x intermediate/{config[genome_id]} -U {input.fastq} > {output} 2>{log}
         """
 
 rule align_to_genome:
